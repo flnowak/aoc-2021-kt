@@ -1,17 +1,14 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    fun part1(measurements: List<Int>): UInt {
+        var count: UInt = 0u
+
+        measurements.reduce { prev, next -> if (next > prev) count+=1u; next }
+        return count
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
+    fun part2(measurements: List<Int>): UInt = part1(measurements.windowed(3).map { values -> values.sum() })
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
+    val measurements: List<Int> = day01InputToListOfIntegers(readInput("Day01"))
+    println("Number of times a depth measurement increased: ${part1(measurements)}")
+    println("Number of times the sum of measurements increased: ${part2(measurements)}")
 }
